@@ -78,4 +78,4 @@ Lighthouse BnB is an app that will revolutionize the travel industry. It will al
 
 Created using drawio
 
-!["Lighhouse ERD"](https://github.com/papoita/LightBnB/blob/master/docs/LightBnB_ERD.png)
+!["Lighhouse ERD"](https://github.com/papoita/LightBnB/blob/master/LightBnB_WebApp-master/docs/LightBnB_ERD.png)
