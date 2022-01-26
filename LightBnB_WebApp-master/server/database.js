@@ -1,6 +1,7 @@
 const properties = require('./json/properties.json');
 const users = require('./json/users.json');
 const { Pool } = require('pg');
+//const db = require('index.js');
 
 const pool = new Pool({
   user: 'vagrant',
@@ -20,9 +21,22 @@ const pool = new Pool({
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  const sql = `SELECT * from users WHERE email = ${email}`;
-  
-}
+  const sql = `SELECT * FROM users WHERE email = $1`;
+  //const values = [email];
+  return pool
+    .query(sql, [email])
+    .then((result) => {
+      if (result.rows.length >=1) {
+        console.log(result.rows.length);
+        console.log (result.rows[0]);
+        return result.rows[0];
+      }
+        return null;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
+};
 exports.getUserWithEmail = getUserWithEmail;
 
 /**
@@ -31,8 +45,17 @@ exports.getUserWithEmail = getUserWithEmail;
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function(id) {
-  return Promise.resolve(users[id]);
-}
+   const sql = `SELECT * FROM users WHERE id = $1`;
+  
+  return pool
+    .query(sql, [id])
+    .then((result) => {
+        return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
 exports.getUserWithId = getUserWithId;
 
 
@@ -42,11 +65,20 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-  const userId = Object.keys(users).length + 1;
-  user.id = userId;
-  users[userId] = user;
-  return Promise.resolve(user);
-}
+
+  return pool
+  .query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;`,
+  [user.name, user.email, user.password])
+  .then ((result) => {
+    console.log(result.rows);
+    return result.rows[0];
+  })
+  .catch ((err) => {
+    console.log(err.message);
+  })
+};
+
+
 exports.addUser = addUser;
 
 /// Reservations
@@ -58,7 +90,7 @@ exports.addUser = addUser;
  */
 const getAllReservations = function(guest_id, limit = 10) {
   return getAllProperties(null, 2);
-}
+};
 exports.getAllReservations = getAllReservations;
 
 /// Properties
@@ -93,5 +125,5 @@ const addProperty = function(property) {
   property.id = propertyId;
   properties[propertyId] = property;
   return Promise.resolve(property);
-}
+};
 exports.addProperty = addProperty;
