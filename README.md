@@ -62,17 +62,20 @@ Lighthouse BnB is an app that will revolutionize the travel industry. It will al
 
 # Dependencies
 
--body-parser
--cookie-session
--express
--postgres
--node
--nodemon
+- bcrypt
+- body-parser
+- cookie-session
+- express
+- postgres
+- node
+- nodemon
 
 ## Getting Started
 
-- Install all dependencies (using the `npm install` command).
-- Run the development web server using the `npm run local` command.
+1. Clone this repository
+2. Install all dependencies (using the `npm install` command).
+3. Run the development web server using the `npm run local` command.
+4. Go to http://localhost:3000/
 
 # LighthouseBNB ERD
 
