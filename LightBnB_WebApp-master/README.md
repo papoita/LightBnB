@@ -73,3 +73,9 @@ Lighthouse BnB is an app that will revolutionize the travel industry. It will al
 
 - Install all dependencies (using the `npm install` command).
 - Run the development web server using the `npm run local` command.
+
+# LighthouseBNB ERD
+
+Created using drawio
+
+!["Lighhouse ERD"](https://github.com/papoita/LightBnB/blob/master/docs/LightBnB_ERD.png)
